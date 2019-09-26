@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性demo</title>
+</head>
+<body>
+    <div id="demo">
+    <P>需求：将字符串 {{text}} 翻转,变成7890,5678,1234</P>
+    <P>这是通过模块内表达式获取的结果：</P>
+    <P>{{ text.split(',').reverse().join(',') }}</P>
+    <p>逻辑过长或复杂会变得臃肿，难以维护，所以在遇到复杂的逻辑时，推荐使用计算属性</p>
+    <hr>
+    <P>这是通过计算属性获取的结果：</P>
+    <P>{{ reverseText }}</P>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> 
+<script>
+    var app = new Vue({
+        el:'#demo', 
+        data:{
+            text: '1234,5678,7890'
+        },
+        computed:{//计算属性默认时getter函数，可以通过setter函数进行设置数据信息
+            reverseText:function(){
+                return this.text.split(',').reverse().join(',')
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>方法demo</title>
+</head>
+<body>
+    <div id="demo2">
+    <p>这是通过计算属性得到的：</p>
+    <p>姓名：{{ fullName }} </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> 
+<script>
+    var app = new Vue({
+        el:'#demo2', 
+        data:{
+            firstName: '诸葛',
+            lastName: '亮'
+        },
+        //用户设置姓名时，就要调用setter方法来完成
+        computed:{//计算属性默认时getter函数，可以通过setter函数进行设置数据信息
+            fullName:{
+            get:function(){
+                return this.firstName + ' '+this.lastName;
+            },
+            set:function(newValue){
+                var names = newValue.split(',');//分割成数组
+                this.firstName = names[0];
+                this.lastName = names[1];
+            }
+            } 
+            },
+            methods:{
+            watch:function(){
+
+            } 
+            }
+    })
+</script>
+
+</body>
+</html>

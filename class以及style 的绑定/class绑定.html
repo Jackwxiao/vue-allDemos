@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>class绑定</title>
+    <style>
+    .divStyle{border:1px solid red;width: 50px;height: 50px;}
+    .borderStyle{background-color:chartreuse;}
+    .btnStyle1{ background-color: coral;}
+    .btnStyle2{ background-color: yellow;}
+    .active{width: 50px;height: 50px;background-color:chartreuse;}
+    .error{ border:10px solid black;}
+    </style>
+</head>
+<body>
+   <div id="demo4">
+    <p>绑定class:</p>
+    <p>对象语法:对象的键是类名: 值是布尔值</p>
+    <div :class="{ divStyle: isActive}"></div><br>
+    <div :class="{ divStyle: isActive,borderStyle: isBorder}"></div><br>
+    <p> 需求：点击按钮切换按钮的颜色</p>
+    <input type="button" value="点我让你好看" :class="{btnStyle1: isBtn,btnStyle2: isBtn2}" v-on:click="changColor" >
+    <p>计算属性：当class复杂时使用</p>
+    <div v-bind:class="classnames"></div>
+    <p>数组语法：数组中的成员直接对应类名</p>
+    <div :class="[activeClass,errorClass]"></div>
+    <p>数组、对象语法混用: 数组中第一个成员是对象（动态的），第二个是数组成员，（固定的）</p>
+    <div :class="[{'active': isActive},errorClass]"></div>
+   </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el: '#demo4',
+        data:{
+            isActive: true,
+            isBorder: true,
+            isBtn: false,
+            isBtn2: false,
+            activeClass: 'active',
+            errorClass:'error'
+        },
+        computed:{
+            classnames: function(){
+            return {active : this.isActive && this.isBorder}
+            }
+        },
+        methods:{
+            changColor:function(){
+                if(this.isBtn){
+                    this.isBtn2=!this.isBtn2
+                }else{
+                    this.isBtn=!this.isBtn
+                }
+            }
+        }
+    })
+    </script>
+</body>
+</html>
