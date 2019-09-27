@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组更新</title>
+
+</head>
+<body>
+    <div id = "demo5">
+        <div v-for='value in arr'>{{ value }}</div>
+    <p>
+    * shift()：删除数组第一个元素，返回的是被删除的元素<br>
+    * unshift("xxx"):xxx 被添加到数组头部，返回新数组的长度<br>
+    * plice( ):可以添加或删除元素，返回删除的元素。<br>
+    * 它有三个参数：<br>
+       1.第一个为操作的位置，<br>
+       2.第二个为操作的长度，<br>
+       3.第三个为可选参数，<br>
+       4.如果第二个参数为0，则把第三个参数压入第一个参数代表的元素后面。<br>
+         <pre>arr=[a,b,c,d]</pre>
+         <pre>.arr.splice(2,0,"xxx","333","xxx")// arr=[a,b,c,xxx,333,xxx,d]</pre>
+    * sort() :排序<br>
+    <button @click="sortArr">点击排序</button><br>
+    * reverse(): 翻转<br>
+    <button @click="reverseArr">点击反转数组</button><br>
+在Vue中使用以上这些数组方法都能引起页面的重新渲染；<br>
+改变数组指定项：Vue.set(app.arr,index,"value");<br>
+    <button @click="changeOne">改变数组指定项(vue检测不到这种写法)</button><br>
+改变数组长度：app.arr.splice(index);<br>
+    <button @click="改变数组长度">改变数组长度(vue检测不到这种写法)</button><br>
+    <hr>
+    <p>过滤:<br>
+        返回字符串中含有oo的项:
+        {{matchOo}}
+    </p>
+    
+</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>  
+        var app = new Vue({
+            el:'#demo5',
+            data:{
+              arr:['book','pen','pencil']
+            },
+            methods:{
+                sortArr:function(){
+                    this.arr.sort(function(a,b){
+                      //从小到大排
+                       return a.length - b.length; 
+                    })
+                },
+                reverseArr:function(){
+                this.arr.reverse();
+                },
+                changeOne:function(){
+                this.arr[0]="car";
+                },
+                changeLength:function(){
+                    this.arr.length = 1;
+                }
+            },
+            computed:{
+                matchOo:function(){
+                    //参数代表要过滤的每一项
+                   return this.arr.filter(function(book){
+                        return book.match(/oo/);
+                    });
+                }
+            } 
+        })
+        //改变数组的第一项
+        // Vue.set(app.arr,0,'car')
+    </script>
+</body>
+</html>

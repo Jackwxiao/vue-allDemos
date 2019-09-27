@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue 修饰符</title>
+</head>
+<body>
+    <div id = "demo5">
+        <div @click="divclick" style="width: 100px;height: 100px;background-color: blueviolet; ">
+            <button @click="btnclick">点我呀</button></div>
+    <p>.stop：阻止单击事件向上冒泡</p>
+        <div @click="divclick" style="width: 100px;height: 100px;background-color: blueviolet; ">
+            <button @click.stop="btnclick">点我呀</button>
+        </div>
+        <hr>
+        <p>prevent: 解决每次提交都会重载页面的问题</p><br>
+        <form action="">
+            <button type="submit" @click="fresh">提交表单</button>
+        </form>
+        解决：
+        <form action="" @submit.prevent="hangle">
+            <button type="submit" @click="unFresh">提交表单</button>
+        </form>
+        <p>self: 只是作用在元素本身，而非子元素的时候调用；互不干涉</p>
+        <div @click.self="divclick" style="width: 100px;height: 100px;background-color: blueviolet; ">
+            <button @click="btnclick">点我呀</button>
+        </div>
+        <p>once: </p>
+        <button @click="onceMethod">执行无限次</button>
+        <button @click.once="onceMethod">只执行一次</button>
+        <p>监听键盘事件：<br>
+            vueJS为我们提供了 .enter（.13）.tab .delete 等
+        </p>
+        输入：<input @keyup.13="submit">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:'#demo5',
+            data:{
+              
+            },
+            methods:{
+                divclick:function(){
+                    alert('div 被点击了')
+                },
+                btnclick:function(){
+                    alert('button 被点击了')
+                },
+                fresh:function(){
+                    alert('你提交表单我就帮你刷新页面')
+                },
+                unFresh:function(){
+                    alert('你 prevent 了我就不帮你刷新了')
+                },
+                onceMethod:function(){
+                    alert('你又点我了，快设置 once 指点我一次吧')
+                },
+                submit:function(){
+                    alert('你已按下 enter 键')
+                }           
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染指令</title>
+</head>
+<body>
+    <div id = "demo5">
+        v-if后接等号,='布尔值'<br>
+        <p v-if="6<3">{{ data1 }}</p>
+        <p v-else>{{ data2 }}</p><hr>
+        <p>实例：需求：点击按钮切换输入框切换</p>
+        <p>加入 key="" 使其重新渲染，解决复用性</p>
+        <div v-if="type==='name'">
+            用户名 ：<input type="text" key="name" placeholder="输入用户名">
+        </div>
+        <div v-else>
+            密码 ：<input type="text" key="psd" placeholder="输入密码" >
+        </div>
+        <button @click="toggleType">点击切换</button>
+        <p>v-show用法及与v-if 的比较：</p>
+        <div v-show="9>a">{{data1}}</div>
+        <p>v-show 改变的只是Css的display属性，v-show元素永远存在dom中
+           v-if 实时渲染，页面显示就渲染，不显示就移除dom
+        </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#demo5',
+        data:{
+            data1: 'true',
+            data2: 'false',
+            type:'name',
+            a : 6
+        },
+        methods:{
+            toggleType:function() {//三木运算，赋值等号优先级是最低的
+                this.type = (this.type==='name' ? 'password':'name')
+           }
+           }
+        })
+    </script>
+</body>
+</html>

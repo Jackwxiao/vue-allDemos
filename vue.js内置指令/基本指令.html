@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基本指令</title>
+    <style>
+      [v-cloak]:{
+          display: none;
+      }
+    </style>
+</head>
+<body>
+    <div id = "demo5">
+        <p> v-cloak: 解决初始化慢导致页面闪动,一般与display:none结合使用</p>
+        <p v-cloak>{{msg}}</p>
+        <p>v-once: 定义他的元素或组件只渲染一次，后续都不会重新渲染</p>
+        <p v-once>{{oncedata}}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+       // while(1){}  故意死循环
+        var app = new Vue({
+            el:'#demo5',
+            data:{
+                msg: '这是示例文字',
+                oncedata: 'oncedata示例文字'
+            }
+        })
+    </script>
+</body>
+</html>
