@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基本用法</title>
+</head>
+<body>
+    <div id="app" style="margin-bottom: 500px;">
+    v-model用法:Vue提供v-model指令，用于在表单类元素上双向绑定事件<br>
+    input输入框:<br>
+    <input type="text" v-model="value"><br>
+    你输入了：{{value}}
+    <br>
+    textare输入框：<br>
+    这是有初始值没加v-model的结果：<br>
+    <textarea name="" id="" cols="30" rows="2">dgwagfhbf</textarea><br>
+    这是有初始值加了v-model的结果:<br>
+    <textarea name="" id="" cols="30" rows="2" v-model="msg">fwsefwfwef</textarea>{{msg}}
+    <hr>
+    单选按钮
+    1. 单个单选框：直接用v-bind绑定一个布尔值 ,用v-model无效<br>
+    <input type="radio" name="" :checked="oneradio"><br>
+    2. 多个单选框：v-model配合value使用，绑定选中的单选框的value值，此处所绑定的初始值可以随意<br>
+    dog: <input type="radio" name="pets" id="" value="dog" v-model="petsname"> <br>
+    cat:  <input type="radio" name="pets" id="" value="cat" v-model="petsname"> <br>
+    Tom:  <input type="radio" name="pets" id="" value="Tom" v-model="petsname"> <br>
+    现在选中的是：{{petsname}}   <hr>
+    复选框：1. 单个复选框：<br>
+    用v-bind:<input type="checkbox" :checked="oneradio">
+    用v-model:<input type="checkbox" v-model="oneradio"><br>
+    2. 多个复选框：<br>
+    dog: <input type="checkbox" value="dog" v-model="checks">
+    cat:  <input type="checkbox" value="cat" v-model="checks">
+    Tom:  <input type="checkbox" value="Tom" v-model="checks">
+    现在选中了：{{checks}}<hr>
+    单选的下拉框：所绑定的value值可以是数组也可以是字符串，v-model一定是绑定在select标签上<br>
+    <select v-model="selected">
+      <option value="dog">dog</option>
+      <option value="cat">cat</option>
+      <option value="Tom">Tom</option>
+    </select><br>现在选中的是： {{selected}}<br><br><br>
+    多选的下拉框：与复选框类似<br>
+    <select v-model="selected2" multiple>
+        <option value="dog">dog</option>
+        <option value="cat">cat</option>
+        <option value="Tom">Tom</option>
+    </select>现在选中的是:按住ctrl键多选 {{selected2}}<hr>
+    总结：<br>
+    如多是单选，初始化最好给定字符串，因为v-model 此时绑定的是静态字符串或者布尔值<br>
+    如果是多选，初始化最好给定一个数组
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            value: '',
+            msg:'',
+            oneradio: true,
+            petsname:'',
+            checks:[],
+            selected:[],
+            selected2: []//也可以是空字符串  ''
+        }
+    })
+    </script>
+</body>
+</html>

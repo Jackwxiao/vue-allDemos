@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绑定值</title>
+</head>
+<body>
+    <div id="app" style="margin-bottom: 300px;">
+    绑定值：<br>
+    单选按钮：v-model失效，如果非要用v-model,那就用v-bind绑定value 值,此时v-model绑定的就是他的value值<br>
+    <input type="radio" v-model="picked" v-bind:value="value">
+    <br>{{picked}}<hr>
+    多选按钮: 选中和不选中时候的value值不一样,用true-value 和 false-value <br>
+    <input type="checkbox" v-model="toggle" :true-value="value1" :false-value="value2">
+    <br>{{toggle}}<br>
+    被选中：{{toggle === value1}}<br>
+    未选中：{{toggle === value2 }}<hr>
+    下拉框：在select标签上绑定value值对option 没有影响<br>
+    <select v-model="valueselect" :value="{num:111}">
+        <option value="dog">dog</option>
+        <option value="cat">cat</option>
+        <option value="bird">bird</option>
+    </select>
+    现在选中的是：{{valueselect}}    ----{{typeof valueselect}}
+    <br>++++<select v-model="valueselect" >
+            <option :value="{num:111}">dog</option>
+    </select>
+    现在选中的是：{{valueselect}}    ----{{typeof valueselect}}
+<hr>
+   修饰符：<br>
+  1. lazy: v-model默认是在input输入时实时同不输入框数据的，而lazy修饰符可以使其在失去焦点或者按回车之后再更新<br>
+   未加lazy : <input type="text" v-model="inputStr">{{inputStr}}<br>
+   加了lazy : <input type="text" v-model.lazy="lazyStr">{{lazyStr}}<br>
+  2. number:将输入的字符串转化为数字。没加number时 输入字符串是string，输入数字也是string，那如果需要number呢,v-model后加.number <br>
+   没加：<input type="text" v-model="isNum1">  {{typeof isNum1}}<br>
+<br>加了：<input type="text" v-model.number="isNum2">{{typeof isNum2}}
+<br> 3. trim: v-model绑定后未加.trim时用户输入的空格也算在输入内容内，加trim可去空格<br>
+    未加.trim: <input type="text" v-model="trimStr"><br>{{trimStr.split('').length}}
+    <br>加了.trim：<input type="text" v-model.trim="trimStr2"><br>{{trimStr2.split('').length}}
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            picked:true,
+            value:'321',
+            toggle: true,
+            value1:'被选中',
+            value2:'未选中',
+            valueselect:'',
+            inputStr:'',
+            lazyStr:'',
+            isNum1:'',
+            isNum2:'',
+            trimStr:'',
+            trimStr2:''
+        }
+    })
+    </script>
+</body>
+</html>
