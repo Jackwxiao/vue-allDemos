@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单向数据流</title>
+    <style>
+    #app{border:1px solid greenyellow;height: 350px;text-align: center;}
+    </style>
+</head>
+<body>
+    两种应用场景：<br>
+    1.父组件传递初始值进来，子组件将它作为初始值保存起来，在自己的作用域下可以随意使用和修改；
+<br>步骤：a: 注册组件；<br>b:将父组件的数据传递进来，并在子组件中用props接收；<br>c:
+将传递进来的数据通过初始值保存起来。<br>
+    2.通过input输入动态改变width，将传递进来的数据通过计算属性重新计算
+    <div id="app">
+        <my-component msg="应用一:我是父组件传递的数据"></my-component>
+        <hr>
+    应用二: <input type="text" v-model="width">
+    <width-component :width="width"></width-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    Vue.component('my-component',{
+         props:['msg'],
+         template:'<div>{{count}}</div>',
+         data:function(){
+             return{//props中的值可以通过this.xxx来进行获取
+                 count:this.msg
+             }
+         }
+    })
+    Vue.component('width-component',{
+         props:['width'],
+         template:'<div :style="style"></div>',
+         data:function(){
+             return{}
+             },
+        computed:{
+            style:function(){
+                return{//重新计算
+                    width:this.width + 'px',
+                    background:'red',
+                    height:'30px'
+                }
+            }
+        }
+         })
+      var app = new Vue({
+          el:'#app',
+          data:{
+              width:0
+          },
+          
+      })
+     </script>
+</body>
+</html>

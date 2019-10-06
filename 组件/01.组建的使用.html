@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的使用</title>
+</head>
+<body>
+    组件的作用：提高代码的复用性；<br>
+    组件的使用方法：<br>
+    1.全局注册：优点：所以的vue实例都可以用；缺点：权限很大，容错率低。
+<br>2.局部注册：只能在所注册的vue实例里使用
+
+    <div id="app">
+     <my-component></my-component>
+     <app-component></app-component>
+    <hr>
+    html标签受限：如table标签内只能有tr 、td 、tbody ，如果把组件名放到table 内，实际内容是不会被渲染到table标签内的，此时需要使用 is 属性来挂载组件名：
+    is="需要挂载的组件名
+    "
+    <table>
+        <tbody is="app-component"></tbody>
+    </table>
+    <hr>
+    <button @click="plus">{{count}}</button>
+    <button @click="plus">{{count}}</button><hr>
+    <btn-component></btn-component>
+    <btn-component></btn-component>
+    </div>
+    组件的使用技巧：
+<br>*使用小写字母或小写字母加 - 进行命名
+<br>*template中的内容必须被一个DOM元素包括，可以嵌套
+<br>*在组件定义中，除了template之外的其他选项 ：data,computed,methods
+<br>*data 必须是一个方法。  
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        //全局注册
+        Vue.component('my-component',{
+            template:'<div>我是全局注册的组件</div>'
+        })
+        var app = new Vue({
+              el:'#app',
+              components:{
+                  'app-component':{
+                      template:'<div>我是局部注册的组件</div>'
+                  },
+                  'btn-component':{
+                      template:'<button @click="count++">{{count}}</button>',
+                      data:function(){
+                          return{
+                              count:0
+                          }
+                      }
+                  }
+              },
+              data:{
+                count:0  
+              },
+              methods:{
+                  plus:function(){
+                      this.count++;
+                  }
+              }
+          })
+    </script>
+</body>
+</html>

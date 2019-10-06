@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件通信</title>
+</head>
+<body>
+    <div id="app">
+        <h5>子组件给父组件传递数据</h5>
+        子组件使用$emit()来触发事件，父组件用$on()来监听子组件事件<br>
+        第一步：自定义事件change；<br>
+        第二部：在子组件的methods中用$emit触发事件，第一个参数是事件名change，后边的参数是要传递的数据this.count；<br>
+        第三部：在自定义事件中用一个参数value来接受传过来的数据<br>
+        余额为：{{total}}
+        <son-component @change="handletotal"></son-component>   
+    
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    Vue.component('son-component',{
+        template:'<div>\
+              <button @click="handleincrease">+1000</button>\
+              <button @click="handlereduce">-1000</button>\
+        </div>',
+        data:function(){
+            return {
+                count:1000
+            }
+        },
+        methods:{
+            handleincrease:function(){
+                this.count=this.count +1000;
+                this.$emit('change',this.count)//change是emit 触发的事件名，后面的参数是要传递的数据
+            },
+            handlereduce:function(){
+                this.count= this.count -1000;
+                this.$emit('change',this.count)
+            }
+        }
+    })
+    var app = new Vue({
+        el:'#app',
+        data:{
+          total:1000
+        },
+        methods:{
+            handletotal:function(value){//此处的形参value 是传过来的数据this.count
+                   this.total=value;
+            }
+        }
+    })
+    </script>
+</body>
+</html>

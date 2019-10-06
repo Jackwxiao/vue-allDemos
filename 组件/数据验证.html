@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    vue组件中的html中使用短横线命名，不允许使用驼峰命名方式！<br>
+    在组件中，父组件给子组件传递数据必须用短横线，在template中必须用驼峰命名，否则报错。<br>
+    在组件的data 中用this.xxx 引用时只能使用驼峰命名方式。
+    <div id="app">
+        <type-component :a='a' :b='b' :c='c' :d='d' :f='f' :g='g'></type-component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('typeComponent',{
+            props:{
+                a:String,
+                b:[String,Number],
+                c:{//必须是布尔类型，默认为true,type,required,default。require表示必传项
+                   type:Boolean,
+                   default:true
+                },
+                d:{
+                    type:Array,
+                    default:function(){
+                        return[1234];
+                    }
+                },
+                f:{//自定义一个验证函数
+                    validator:function(value){
+                        return value>10;
+                    }
+                },
+                g:Function
+            },
+            template:'<div>{{a}}---{{b}}---{{c}}---{{d[1]}}--{{f}}--{{g}}</div>'
+        })
+        var app = new Vue({
+            el:'#app',
+            data:{
+                a:'1',
+                b:'6666',
+                c:false,
+                d:[1,2,3],
+                f:88,
+                g:console.log()
+            }
+        })
+    </script>
+</body>
+</html>

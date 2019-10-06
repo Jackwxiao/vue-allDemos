@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父组件之间的通信</title>
+</head>
+<body>
+    <div id="app">
+        <my-acomponent></my-acomponent>
+        <my-bcomponent></my-bcomponent>
+        <hr>
+        <child-component></child-component>---{{msg}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    Vue.component('my-acomponent',{
+        template:'<div><button @click="handle">点我向B组件传递数据</button></div>',
+        data:function(){
+            return {
+                aaa:'我来自A组件'
+            }
+        },
+        methods:{
+            handle:function(){
+                this.$root.bus.$emit('lala',this.aaa)
+            }
+        }
+    })
+    Vue.component('child-component',{
+        template:'<div><button @click="freshData">点我修改父组件的内容</button></div>',
+        methods:{
+            freshData:function(){
+                this.$parent.msg='修改数据完成'
+            }
+        }
+    })
+    Vue.component('my-bcomponent',{
+        template:'<div></div>',
+        created:function(){
+            //A组件在实例创建时就监听事件---lala事件
+            this.$root.bus.$on('lala',function(value){
+                   alert(value)
+            })
+        }
+    })
+    var app = new Vue({
+        el:'#app',
+        data:{
+         bus:new Vue(),//定义Bus中介
+        msg:'未修改'
+        },
+    })
+    </script>
+</body>
+</html>
