@@ -11,8 +11,8 @@
         <h5>子组件给父组件传递数据</h5>
         子组件使用$emit()来触发事件，父组件用$on()来监听子组件事件<br>
         第一步：自定义事件change；<br>
-        第二部：在子组件的methods中用$emit触发事件，第一个参数是事件名change，后边的参数是要传递的数据this.count；<br>
-        第三部：在自定义事件中用一个参数value来接受传过来的数据<br>
+        第二步：在子组件的methods中用$emit触发事件，第一个参数是事件名change，后边的参数是要传递的数据this.count；<br>
+        第三步：在自定义事件中用一个参数value来接受传过来的数据<br>
         余额为：{{total}}
         <son-component @change="handletotal"></son-component>   
     

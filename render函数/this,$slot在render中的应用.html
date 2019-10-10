@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this.$slot</title>
+</head>
+<body>
+    <p>这里第三个参数存的是vnode 虚拟节点,createElement('header',header)返回的就是vnode</p>
+    <div id="app">
+        <component>
+            <p>锄禾日当午</p>
+            <p>汗滴禾下土</p>
+            <h3 slot="header">标题是啥？</h3>
+            <h5 slot="footer">最后一句是啥？</h5>
+        </component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('component',{
+            render:function(createElement){
+                var header = this.$slots.header;
+                var main = this.$slots.default;
+                var footer = this.$slots.footer;
+                return createElement('div',[
+                    createElement('header',header),//这里返回的内容是含有vnode的数组
+                    createElement('main',main),
+                    createElement('footer',footer)
+                ])
+                
+            }
+        })
+        var app = new Vue({
+            el:'#app',
+            data:{
+                
+            }
+        })
+    </script>
+</body>
+</html>

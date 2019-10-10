@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>render函数</title>
+</head>
+<body>
+    需求：父组件向子组件传递一个数据，比如传递一个数字1，传递过来的数据会被子组件h1包裹
+    <br>这是使用vue 组件实现的：<br>
+    用v-if 会h1、h2、h3都先渲染一遍，然后再把多余的删掉，这样会造成代码冗余等问题<br>
+    <div id="app">
+        <child :level="level">
+            这是示例文字
+        </child>
+        <template id="hdom">
+            <div>
+                <h1 v-if="level==1"><slot></slot></h1>
+                <h2 v-if="level==2"><slot></slot></h2>
+                <h3 v-if="level==3"><slot></slot></h3>
+            </div>
+        </template>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('child',{
+            props:['level'],
+            template:'#hdom'
+        })
+        var app = new Vue({
+            el:'#app',
+            data:{
+                level:2
+            }
+        })
+    </script>
+</body>
+</html>

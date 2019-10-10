@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this.$slot</title>
+</head>
+<body>
+    <p></p>
+    <div id="app">
+        <component>
+          <template scope="prop">
+            {{prop.text}}
+            {{prop.msg}}
+          </template>
+        </component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('component',{
+            render:function(createElement){
+                //相当于<div><slot :text="text"></slot></div>
+                return createElement('div',this.$scopedSlots.default({
+                    text: '这是子组件传过来的数据',
+                    msg:'scopetext'
+                }))
+            }
+        })
+        var app = new Vue({
+            el:'#app',
+            data:{
+                
+            }
+        })
+    </script>
+</body>
+</html>
